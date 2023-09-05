@@ -1,0 +1,18 @@
+---
+- hosts: dev
+  connection: ssh
+  tasks:
+    - name: multiple files
+      file:
+        path:
+          
+        with_in_items:
+          - hii
+          - helloo
+        state: directory
+
+
+
+
+
+...

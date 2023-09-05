@@ -1,0 +1,41 @@
+---
+
+- hosts: dev
+  connection: ssh
+
+  tasks:
+    - name: install dependence
+      yum: name=java-1.8.0-openjdk state=present
+
+    - name: download tomcat
+      get_url:
+        url: "https://downloads.apache.org/tomcat/tomcat-9/v9.0.80/bin/apache-tomcat-9.0.80.tar.gz"
+        dest: "/root"
+
+    - name: untar
+      command: tar -zxvf apache-tomcat-9.0.80.tar.gz
+
+    - name: rename
+      command: mv apache-tomcat-9.0.80 tomcat
+      tags: abc
+
+    - name: permission
+      template:
+        src: "context.xml"
+        dest: "tomcat/webapps/manager/META-INF/context.xml"
+
+    - name: modify
+      template:
+        src: "tomcat-users.xml"
+        dest: "tomcat/conf/tomcat-users.xml"
+    
+    - name: start the tomcat
+      shell: nohup ./tomcat/bin/startup.sh
+
+
+
+
+
+
+
+...

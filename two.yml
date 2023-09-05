@@ -1,0 +1,11 @@
+---
+
+- hosts: dev
+  connection: ssh
+
+  tasks :
+
+    - name: multiple file
+      file:
+        path: '"hi.txt","hello.txt"'
+        state: touch
